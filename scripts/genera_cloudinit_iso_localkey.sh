@@ -1,6 +1,7 @@
 #!/bin/bash
 # from: https://gist.github.com/leogallego/a614c61457ed22cb1d960b32de4a1b01
 
+## ATENCIÓ: invocar amb "bash genera_cloudinit_iso_localkey.sh" 
 
 #
 # genera la iso de cloud-init i incorpora les claus públiques de github del compte COMPTE: obligatori canviar-lo; 
