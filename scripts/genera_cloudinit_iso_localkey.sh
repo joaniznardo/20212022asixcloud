@@ -5,6 +5,18 @@
 #
 # genera la iso de cloud-init i incorpora les claus públiques de github del compte COMPTE: obligatori canviar-lo; 
 # 
+export CLAU=~/.ssh/id_rsa3
+export PUBLICA=$CLAU.pub
+
+if [ -f "$PUBLICA" ]; 
+  then 
+    echo "clau pública existent";
+  else 
+    echo "generant clau publica";
+    ssh-keygen -q -t rsa -f "$CLAU" -C "generada automaticament; fer backup" -N "";
+fi
+CLAUPUBLICA=$(cat $PUBLICA);  
+   
 
 export VERSIO=01
 export COMPTE=changemetelopidoporfavor
@@ -29,7 +41,7 @@ cat > user-data <<EOF
 users:
   - default
   - name: ${COMPTE}${VERSIO}
-    passwd: test01
+    passwd: $6$p7eIF8oeovbO$FYmQletmACF4GWkiiheknPG0MZEJHUyuBLOlc9oYgAzXDnCCDgjM6bBVsTUQVqbzFcprYUiL9GzHHMt5U0D9s0
     lock_passwd: false
     shell: /bin/bash
     ssh_pwauth: False
@@ -37,12 +49,13 @@ users:
     gecos: ${COMPTE}
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups: users, adm
-    ssh_import_id: gh:${COMPTE}
-
+    ssh_authorized_keys:
+      - ${CLAUPUBLICA}
 chpasswd:
   list: |
     ${COMPTE}${VERSIO}:test01
   expire: False
+
 
 package_update: true
 runcmd:
