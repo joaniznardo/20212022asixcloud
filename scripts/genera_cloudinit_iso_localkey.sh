@@ -20,7 +20,7 @@ CLAUPUBLICA=$(cat $PUBLICA);
    
 
 export VERSIO=01
-export COMPTE=changemetelopidoporfavor
+export COMPTE=alumne
 
 ## meta-data
 cat > meta-data <<EOF
