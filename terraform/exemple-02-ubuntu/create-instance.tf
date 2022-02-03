@@ -24,10 +24,11 @@ resource "aws_key_pair" "keypair" {
 
 
 resource "aws_instance" "instance" {
-  ami                         = var.instance_ami
+#  ami                         = var.instance_ami
+  ami                         = data.aws_ami.ubuntu.id
+
 #  availability_zone           = "${var.aws_region}${var.aws_region_az}"
-  #instance_type               = var.instance_type
-  instance_type               = data.aws_ami.ubuntu.id
+  instance_type               = var.instance_type
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.sg.id]
   subnet_id                   = aws_subnet.subnet.id
